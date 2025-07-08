@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:44:48 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 16:02:56 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:59:01 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 int	main(int argc, char *argv[])
 {
-	long long	initial_time;
+	t_philo	philo;
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	(void)argv;
-	initial_time = get_time_in_ms();
-	print_action(initial_time, 1, STATE_TAKE_FORK);
-	usleep(500000);
-	print_action(initial_time, 2, STATE_EAT);
-	usleep(500000);
-	print_action(initial_time, 3, STATE_SLEEP);
-	usleep(500000);
-	print_action(initial_time, 4, STATE_THINK);
-	usleep(500000);
-	print_action(initial_time, 4, STATE_DIE);
+	philo.start_time = get_time_in_ms();
+	if (parse_input(argc, argv, &philo) == 1)
+		return (1);
+	printf("number_of_philosophers: %d,\n", philo.n_philo);
+	printf("time_to_die: %lld,\n", philo.die_time);
+	printf("time_to_eat: %lld,\n", philo.eat_time);
+	printf("time_to_sleep: %lld,\n", philo.sleep_time);
+	printf("number_of_times_each_philosopher_must_eat: %d,\n", philo.n_philo_must_eat);
+	printf("Start Time in ms: %lld\n", philo.start_time);
 	return (0);
 }

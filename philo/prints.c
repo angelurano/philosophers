@@ -6,13 +6,13 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:26:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 16:09:10 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:53:27 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long	get_time_in_ms(void)
+t_ms	get_time_in_ms(void)
 {
 	struct timeval	tv;
 
@@ -20,9 +20,9 @@ long long	get_time_in_ms(void)
 	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000));
 }
 
-void	print_action(long long start, int philosopher, int action)
+void	print_action(t_ms start, int philosopher, int action)
 {
-	long long	ms;
+	t_ms	ms;
 
 	ms = get_time_in_ms() - start;
 	if (action == STATE_TAKE_FORK)

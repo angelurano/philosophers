@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:44:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 15:57:27 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:03:19 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 // pthread_mutex_t
 
 # include <sys/types.h> // usecondst_t
+# include <limits.h>
 
 # define STATE_TAKE_FORK 0
 # define STATE_EAT 1
@@ -34,7 +35,23 @@
 
 typedef pthread_mutex_t	t_fork;
 
-long long	get_time_in_ms(void);
-void		print_action(long long start, int philosopher, int action);
+typedef long long		t_ms;
+
+typedef struct s_philo
+{
+	t_fork	*forks;
+	t_ms	start_time;
+	t_ms	die_time;
+	t_ms	eat_time;
+	t_ms	sleep_time;
+	int		n_philo;
+	int		n_philo_must_eat;
+
+}	t_philo;
+
+int		parse_input(int argc, char *argv[], t_philo *philo);
+
+t_ms	get_time_in_ms(void);
+void	print_action(t_ms start, int philosopher, int action);
 
 #endif
