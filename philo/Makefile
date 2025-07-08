@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 
 RM = rm -f
 
-SRC = philosophers.c
+SRC = philosophers.c prints.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

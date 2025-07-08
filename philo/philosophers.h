@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:44:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/06 21:13:58 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:57:27 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@
 
 # include <sys/types.h> // usecondst_t
 
+# define STATE_TAKE_FORK 0
+# define STATE_EAT 1
+# define STATE_SLEEP 2
+# define STATE_THINK 3
+# define STATE_DIE 4
+
 typedef pthread_mutex_t	t_fork;
+
+long long	get_time_in_ms(void);
+void		print_action(long long start, int philosopher, int action);
 
 #endif
