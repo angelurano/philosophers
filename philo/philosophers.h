@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:44:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 18:03:19 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:37:57 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ typedef long long		t_ms;
 
 typedef struct s_philo
 {
+	struct s_data	*program_data;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	t_ms			last_timestamp;
+	int				id;
+	int				eat_count;
+}	t_philo;
+
+typedef struct s_data
+{
+	t_philo	*philos;
 	t_fork	*forks;
 	t_ms	start_time;
 	t_ms	die_time;
@@ -46,10 +57,12 @@ typedef struct s_philo
 	t_ms	sleep_time;
 	int		n_philo;
 	int		n_philo_must_eat;
+}	t_data;
 
-}	t_philo;
+int		parse_input(int argc, char *argv[], t_data *data);
 
-int		parse_input(int argc, char *argv[], t_philo *philo);
+int		init_data(t_data *data);
+void	free_forks(t_fork *forks, int count);
 
 t_ms	get_time_in_ms(void);
 void	print_action(t_ms start, int philosopher, int action);
