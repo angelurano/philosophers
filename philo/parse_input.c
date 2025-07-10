@@ -6,11 +6,11 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:23:46 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 21:04:20 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:12:52 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 static int	ft_isspace(char c)
 {

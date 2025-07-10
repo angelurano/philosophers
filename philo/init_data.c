@@ -6,13 +6,13 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 15:37:40 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:33:14 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-static void	init_philos(t_data *data)
+static void	init_data_philos(t_data *data)
 {
 	int	i;
 
@@ -21,8 +21,11 @@ static void	init_philos(t_data *data)
 	{
 		data->philos[i].program_data = data;
 		data->philos[i].left_fork = &data->forks[i];
-		data->philos[i].right_fork = &data->forks[i + 1 % data->n_philo];
-		data->philos[i].last_timestamp = 0; // !
+		if (data->n_philo == 1)
+			data->philos[i].right_fork = NULL;
+		else
+			data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philo];
+		data->philos[i].last_meal = 0; // !
 		data->philos[i].id = i + 1;
 		data->philos[i].eat_count = 0;
 		i++;
@@ -59,6 +62,6 @@ int	init_data(t_data *data)
 			return (free_forks(data->forks, i), free(data->philos), 1);
 		i++;
 	}
-	init_philos(data);
+	init_data_philos(data);
 	return (0);
 }

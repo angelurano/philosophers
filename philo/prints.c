@@ -6,11 +6,11 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:26:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/08 16:53:27 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:17:48 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 t_ms	get_time_in_ms(void)
 {
@@ -25,7 +25,7 @@ void	print_action(t_ms start, int philosopher, int action)
 	t_ms	ms;
 
 	ms = get_time_in_ms() - start;
-	if (action == STATE_TAKE_FORK)
+	if (action == STATE_1_FORK || action == STATE_2_FORK)
 		printf("%lld %d has taken a fork\n", ms, philosopher);
 	else if (action == STATE_EAT)
 		printf("%lld %d is eating\n", ms, philosopher);
