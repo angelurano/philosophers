@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 18:33:14 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:47:16 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	init_data_philos(t_data *data)
 			data->philos[i].right_fork = NULL;
 		else
 			data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philo];
-		data->philos[i].last_meal = 0; // !
+		data->philos[i].last_meal = 0;
 		data->philos[i].id = i + 1;
 		data->philos[i].eat_count = 0;
 		i++;
@@ -55,13 +55,17 @@ int	init_data(t_data *data)
 	data->forks = malloc(data->n_philo * sizeof(t_fork));
 	if (data->forks == NULL)
 		return (free(data->philos), 1);
+	if (pthread_mutex_init(&data->die_flag_mutex, NULL) != 0)
+		return (free_forks(data->forks, data->n_philo), free(data->philos), 1);
 	i = 0;
 	while (i < data->n_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (free_forks(data->forks, i), free(data->philos), 1);
+			return (free_forks(data->forks, i), free(data->philos),
+				pthread_mutex_destroy(&data->die_flag_mutex), 1);
 		i++;
 	}
+	data->die_flag = 0;
 	init_data_philos(data);
 	return (0);
 }

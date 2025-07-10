@@ -54,15 +54,16 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_fork	*forks;
-	t_philo	*philos;
-	t_ms	start_time;
-	t_ms	die_time;
-	t_ms	eat_time;
-	t_ms	sleep_time;
-	int		n_philo;
-	int		n_philo_must_eat;
-	int		die_flag;
+	pthread_mutex_t	die_flag_mutex;
+	t_fork			*forks;
+	t_philo			*philos;
+	t_ms			start_time;
+	t_ms			die_time;
+	t_ms			eat_time;
+	t_ms			sleep_time;
+	int				n_philo;
+	int				n_philo_must_eat;
+	int				die_flag;
 }	t_data;
 
 int		parse_input(int argc, char *argv[], t_data *data);
@@ -70,13 +71,15 @@ int		parse_input(int argc, char *argv[], t_data *data);
 int		init_data(t_data *data);
 void	free_forks(t_fork *forks, int count);
 
+int		get_die_flag(t_data *data);
+
 void	*philosopher_thread(void *arg);
 
 void	*monitor(t_data	*data);
 int		init_threads(t_data *data);
 void	join_threads(t_data *data);
 
-t_ms	get_time_in_ms(void);
-void	print_action(t_ms start, int philosopher, int action);
+t_ms	get_time_ms(void);
+void	print_action(t_ms start, int philosopher, enum e_philo_state action);
 
 #endif

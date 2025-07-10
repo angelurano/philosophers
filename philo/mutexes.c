@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   mutexes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 18:44:48 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 20:32:56 by migugar2         ###   ########.fr       */
+/*   Created: 2025/07/10 19:46:52 by migugar2          #+#    #+#             */
+/*   Updated: 2025/07/10 20:47:29 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+int	get_die_flag(t_data *data)
 {
-	t_data	data;
-	int		state;
+	int	flag;
 
-	if (argc < 5 || argc > 6)
-		return (1);
-	if (parse_input(argc, argv, &data) == 1)
-		return (1);
-	if (init_data(&data) == 1)
-		return (1);
-	state = init_threads(&data);
-	join_threads(&data);
-	free_forks(data.forks, data.n_philo);
-	free(data.philos);
-	pthread_mutex_destroy(&data.die_flag_mutex);
-	return (state);
+	pthread_mutex_lock(&data->die_flag_mutex);
+	flag = data->die_flag;
+	pthread_mutex_unlock(&data->die_flag_mutex);
+	return (flag);
 }
