@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 20:48:43 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:55:57 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	init_threads(t_data *data)
 	int	i;
 
 	i = 0;
+	data->start_time = get_time_ms();
 	while (i < data->n_philo)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL,

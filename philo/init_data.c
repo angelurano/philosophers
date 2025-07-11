@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 20:47:16 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:55:34 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	init_data(t_data *data)
 				pthread_mutex_destroy(&data->die_flag_mutex), 1);
 		i++;
 	}
-	data->die_flag = 0;
 	init_data_philos(data);
+	data->die_flag = 0;
 	return (0);
 }
