@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/11 13:59:57 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:20:12 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*monitor(t_data	*data)
 			{
 				data->die_flag = 1;
 				pthread_mutex_unlock(&data->die_flag_mutex);
-				print_action(data->start_time, data->philos[i].id, STATE_DIE);
+				printter(data->start_time, data->philos[i].id, STATE_DIE);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&data->die_flag_mutex);
@@ -48,7 +48,7 @@ void	*monitor(t_data	*data)
 		}
 		if (data->n_philo_must_eat != -1 && all_philo_eat(data))
 			return (NULL);
-		usleep(900);
+		usleep(1000);
 	}
 	return (NULL);
 }

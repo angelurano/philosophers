@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_handlers.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 17:15:37 by migugar2          #+#    #+#             */
+/*   Updated: 2025/07/11 15:53:13 by migugar2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+enum e_philo_state	think_handler(t_philo *philo)
+{
+	printter(philo->program_data->start_time, philo->id, STATE_THINK);
+	return (STATE_1_FORK);
+}
+
+// TODO: Check if need to change the behavior of taking forks for deadlock prevention
+enum e_philo_state	take1_handler(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	if (get_die_flag(philo->program_data) == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		return (STATE_DIE);
+	}
+	printter(philo->program_data->start_time, philo->id, STATE_1_FORK);
+	if (philo->program_data->n_philo == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		return (STATE_DIE);
+	}
+	return (STATE_2_FORK);
+}
+
+enum e_philo_state	take2_handler(t_philo *philo)
+{
+	pthread_mutex_lock(philo->right_fork);
+	if (get_die_flag(philo->program_data) == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		return (STATE_DIE);
+	}
+	printter(philo->program_data->start_time, philo->id, STATE_2_FORK);
+	return (STATE_EAT);
+}
+
+enum e_philo_state	eat_handler(t_philo *philo)
+{
+	printter(philo->program_data->start_time, philo->id, STATE_EAT);
+	philo->last_meal = get_time_ms();
+	philo->eat_count++;
+	usleep(philo->program_data->eat_time * 1000);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	return (STATE_SLEEP);
+}
+
+enum e_philo_state	sleep_handler(t_philo *philo)
+{
+	printter(philo->program_data->start_time, philo->id, STATE_SLEEP);
+	usleep(philo->program_data->sleep_time * 1000);
+	return (STATE_THINK);
+}

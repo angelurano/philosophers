@@ -29,11 +29,11 @@
 
 enum e_philo_state
 {
+	STATE_THINK,
 	STATE_1_FORK,
 	STATE_2_FORK,
 	STATE_EAT,
 	STATE_SLEEP,
-	STATE_THINK,
 	STATE_DIE
 };
 
@@ -66,20 +66,26 @@ typedef struct s_data
 	int				die_flag;
 }	t_data;
 
-int		parse_input(int argc, char *argv[], t_data *data);
+enum e_philo_state	think_handler(t_philo *philo);
+enum e_philo_state	take1_handler(t_philo *philo);
+enum e_philo_state	take2_handler(t_philo *philo);
+enum e_philo_state	eat_handler(t_philo *philo);
+enum e_philo_state	sleep_handler(t_philo *philo);
 
-int		init_data(t_data *data);
-void	free_forks(t_fork *forks, int count);
+int					parse_input(int argc, char *argv[], t_data *data);
 
-int		get_die_flag(t_data *data);
+int					init_data(t_data *data);
+void				free_forks(t_fork *forks, int count);
 
-void	*philosopher_thread(void *arg);
+int					get_die_flag(t_data *data);
 
-void	*monitor(t_data	*data);
-int		init_threads(t_data *data);
-void	join_threads(t_data *data);
+void				*philosopher_thread(void *arg);
 
-t_ms	get_time_ms(void);
-void	print_action(t_ms start, int philosopher, enum e_philo_state action);
+void				*monitor(t_data	*data);
+int					init_threads(t_data *data);
+void				join_threads(t_data *data);
+
+t_ms				get_time_ms(void);
+void				printter(t_ms start, int p_id, enum e_philo_state action);
 
 #endif
