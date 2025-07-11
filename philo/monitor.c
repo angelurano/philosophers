@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 21:55:57 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:59:57 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	*monitor(t_data	*data)
 		while (i < data->n_philo)
 		{
 			pthread_mutex_lock(&data->die_flag_mutex);
-			if (data->philos[i].last_meal != 0
-				&& get_time_ms() - data->philos[i].last_meal > data->die_time)
+			if (get_time_ms() - data->philos[i].last_meal > data->die_time)
 			{
 				data->die_flag = 1;
 				pthread_mutex_unlock(&data->die_flag_mutex);
@@ -62,6 +61,7 @@ int	init_threads(t_data *data)
 	data->start_time = get_time_ms();
 	while (i < data->n_philo)
 	{
+		data->philos[i].last_meal = data->start_time;
 		if (pthread_create(&data->philos[i].thread, NULL,
 				philosopher_thread, &data->philos[i]) != 0)
 		{
