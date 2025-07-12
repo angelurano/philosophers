@@ -6,13 +6,13 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:50:46 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/11 16:05:43 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:31:31 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philosopher_thread(void *arg)
+void	*philosopher_routine(void *arg)
 {
 	static enum e_philo_state	(*handlers[5])(t_philo *) = {
 		think_handler,

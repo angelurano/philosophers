@@ -66,26 +66,30 @@ typedef struct s_data
 	int				die_flag;
 }	t_data;
 
+int					ft_isdigit(char c);
+int					ft_isspace(char c);
+void				free_forks(t_fork *forks, int count);
+
+t_ms				get_time_ms(void);
+
+int					get_die_flag(t_data *data);
+
+int					parse_input(int argc, char *argv[], t_data *data);
+
+int					init_data(t_data *data);
+
 enum e_philo_state	think_handler(t_philo *philo);
 enum e_philo_state	take1_handler(t_philo *philo);
 enum e_philo_state	take2_handler(t_philo *philo);
 enum e_philo_state	eat_handler(t_philo *philo);
 enum e_philo_state	sleep_handler(t_philo *philo);
 
-int					parse_input(int argc, char *argv[], t_data *data);
+void				*philosopher_routine(void *arg);
 
-int					init_data(t_data *data);
-void				free_forks(t_fork *forks, int count);
-
-int					get_die_flag(t_data *data);
-
-void				*philosopher_thread(void *arg);
-
-void				*monitor(t_data	*data);
-int					init_threads(t_data *data);
+void				*monitor_routine(void *arg);
+int					init_routines(t_data *data);
 void				join_threads(t_data *data);
 
-t_ms				get_time_ms(void);
 void				printter(t_ms start, int p_id, enum e_philo_state action);
 
 #endif

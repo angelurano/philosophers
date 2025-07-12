@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/10 21:55:34 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:29:37 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ static void	init_data_philos(t_data *data)
 		data->philos[i].eat_count = 0;
 		i++;
 	}
-}
-
-void	free_forks(t_fork *forks, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(&forks[i]);
-		i++;
-	}
-	free(forks);
 }
 
 int	init_data(t_data *data)

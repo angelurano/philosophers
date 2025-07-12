@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/11 15:20:12 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:35:53 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ static int	all_philo_eat(t_data *data)
 	return (1);
 }
 
-void	*monitor(t_data	*data)
+void	*monitor_routine(void *arg)
 {
+	t_data	*data;
 	int		i;
 
+	data = (t_data *)arg;
 	while (1)
 	{
 		i = 0;
@@ -53,7 +55,7 @@ void	*monitor(t_data	*data)
 	return (NULL);
 }
 
-int	init_threads(t_data *data)
+int	init_routines(t_data *data)
 {
 	int	i;
 
@@ -63,14 +65,14 @@ int	init_threads(t_data *data)
 	{
 		data->philos[i].last_meal = data->start_time;
 		if (pthread_create(&data->philos[i].thread, NULL,
-				philosopher_thread, &data->philos[i]) != 0)
+				philosopher_routine, &data->philos[i]) != 0)
 		{
 			data->die_flag = 1;
 			return (1);
 		}
 		i++;
 	}
-	monitor(data);
+	monitor_routine(data);
 	return (0);
 }
 

@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printter.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 15:26:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:26:09 by migugar2         ###   ########.fr       */
+/*   Created: 2025/07/12 11:25:22 by migugar2          #+#    #+#             */
+/*   Updated: 2025/07/12 11:29:44 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	printter(t_ms start, int p_id, enum e_philo_state action)
+int	ft_isdigit(char c)
 {
-	static char	*msgs[6] = {
-		"thinking",
-		"has taken a fork",
-		"has taken a fork",
-		"is eating",
-		"is sleeping",
-		"died"
-	};
-	t_ms		ms;
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
-	ms = get_time_ms() - start;
-	printf("%lld %d %s\n", ms, p_id, msgs[action]);
+int	ft_isspace(char c)
+{
+	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
+		|| c == '\v')
+		return (1);
+	return (0);
+}
+
+void	free_forks(t_fork *forks, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+	free(forks);
 }

@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:15:37 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/11 15:53:13 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:25:00 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,16 @@ enum e_philo_state	think_handler(t_philo *philo)
 // TODO: Check if need to change the behavior of taking forks for deadlock prevention
 enum e_philo_state	take1_handler(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
+	if (philo->program_data->n_philo % 2 == 0 && philo->id % 2 == 0)
+		pthread_mutex_lock(philo->right_fork);
+	else
+		pthread_mutex_lock(philo->left_fork);
+	/*
+	if (philo->program_data->n_philo % 2 == 0 && philo->id % 2 == 0)
+		pthread_mutex_lock(philo->right_fork);
+	else
+		pthread_mutex_lock(philo->left_fork);
+	*/
 	if (get_die_flag(philo->program_data) == 1)
 	{
 		pthread_mutex_unlock(philo->left_fork);
@@ -39,7 +48,10 @@ enum e_philo_state	take1_handler(t_philo *philo)
 
 enum e_philo_state	take2_handler(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
+	if (philo->program_data->n_philo % 2 == 0 && philo->id % 2 == 0)
+		pthread_mutex_lock(philo->left_fork);
+	else
+		pthread_mutex_lock(philo->right_fork);
 	if (get_die_flag(philo->program_data) == 1)
 	{
 		pthread_mutex_unlock(philo->left_fork);
