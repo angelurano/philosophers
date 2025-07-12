@@ -6,11 +6,37 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 12:24:32 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:40:29 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	assign_forks(t_philo *philo)
+{
+	t_fork	*left_fork;
+	t_fork	*right_fork;
+	int		index;
+
+	left_fork = &philo->program_data->forks[philo->id - 1];
+	if (philo->program_data->n_philo > 1)
+	{
+		index = philo->id % philo->program_data->n_philo;
+		right_fork = &philo->program_data->forks[index];
+	}
+	else
+		right_fork = NULL;
+	if (philo->id % 2 != 0)
+	{
+		philo->first_fork = left_fork;
+		philo->second_fork = right_fork;
+	}
+	else
+	{
+		philo->first_fork = right_fork;
+		philo->second_fork = left_fork;
+	}
+}
 
 static int	init_data_philos(t_data *data)
 {
@@ -21,14 +47,12 @@ static int	init_data_philos(t_data *data)
 	{
 		if (pthread_mutex_init(&data->philos[i].eat_info_mutex, NULL) != 0)
 			return (free_eat_mutexes(data->philos, i), 1);
-		data->philos[i].program_data = data;
-		data->philos[i].left_fork = &data->forks[i];
-		if (data->n_philo == 1)
-			data->philos[i].right_fork = NULL;
-		else
-			data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philo];
 		data->philos[i].id = i + 1;
+		data->philos[i].program_data = data;
+		data->philos[i].first_taken = 0;
+		data->philos[i].second_taken = 0;
 		data->philos[i].eat_count = 0;
+		assign_forks(&data->philos[i]);
 		i++;
 	}
 	return (0);

@@ -45,11 +45,13 @@ typedef struct s_philo
 {
 	pthread_mutex_t	eat_info_mutex;
 	struct s_data	*program_data;
-	t_fork			*left_fork;
-	t_fork			*right_fork;
+	t_fork			*first_fork;
+	t_fork			*second_fork;
 	pthread_t		thread;
 	t_ms			last_eat_time;
 	int				id;
+	int				first_taken;
+	int				second_taken;
 	int				eat_count;
 }	t_philo;
 
@@ -91,6 +93,10 @@ enum e_philo_state	take2_handler(t_philo *philo);
 enum e_philo_state	eat_handler(t_philo *philo);
 enum e_philo_state	sleep_handler(t_philo *philo);
 
+void				take_first_fork(t_philo *philo);
+void				take_second_fork(t_philo *philo);
+void				release_first_fork(t_philo *philo);
+void				release_second_fork(t_philo *philo);
 void				*philosopher_routine(void *arg);
 
 void				*monitor_routine(void *arg);
