@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:26:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 12:58:08 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 13:19:36 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	printter(t_philo *philo, enum e_philo_state action)
 {
 	static char	*msgs[6] = {
-		"thinking",
+		"is thinking",
 		"has taken a fork",
 		"has taken a fork",
 		"is eating",

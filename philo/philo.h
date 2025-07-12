@@ -52,6 +52,7 @@ typedef struct s_philo
 	int				id;
 	int				first_taken;
 	int				second_taken;
+	int				already_eat;
 	int				eat_count;
 }	t_philo;
 
@@ -77,6 +78,7 @@ void				free_eat_mutexes(t_philo *philos, int count);
 void				free_all(t_data *data, int count, int is_init);
 
 t_ms				get_time_ms(void);
+t_ms				min_ms(t_ms a, t_ms b);
 
 int					get_die_flag(t_data *data);
 void				set_eat_info(t_philo *philo);

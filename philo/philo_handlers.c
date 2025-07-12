@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:15:37 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 13:03:48 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:19:59 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@ enum e_philo_state	think_handler(t_philo *philo)
 {
 	if (printter(philo, STATE_THINK) == 1)
 		return (STATE_DIE);
+	if (philo->already_eat == 1)
+	{
+		if (philo->program_data->n_philo % 2 == 1)
+		{
+			if (philo->program_data->eat_time
+				<= philo->program_data->sleep_time)
+				usleep(((philo->program_data->sleep_time
+							- philo->program_data->eat_time) * 1000) + 200);
+			else
+				usleep(((philo->program_data->eat_time
+							- philo->program_data->sleep_time) * 1000) + 200);
+		}
+	}
+	else if (philo->program_data->n_philo > 1 && philo->id % 2 != 0)
+		usleep((min_ms(philo->program_data->eat_time,
+					philo->program_data->die_time) / 2) * 1000);
 	return (STATE_1_FORK);
 }
 
@@ -51,6 +67,7 @@ enum e_philo_state	eat_handler(t_philo *philo)
 	{
 		set_eat_info(philo);
 		usleep(philo->program_data->eat_time * 1000);
+		philo->already_eat = 1;
 	}
 	release_first_fork(philo);
 	release_second_fork(philo);
