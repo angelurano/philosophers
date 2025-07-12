@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:15:37 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:53:23 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:24:57 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ enum e_philo_state	take2_handler(t_philo *philo)
 enum e_philo_state	eat_handler(t_philo *philo)
 {
 	printter(philo, STATE_EAT);
-	philo->last_meal = get_time_ms();
-	philo->eat_count++;
+	set_eat_info(philo);
 	usleep(philo->program_data->eat_time * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);

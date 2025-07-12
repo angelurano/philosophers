@@ -6,30 +6,32 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:58:03 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:24:32 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_data_philos(t_data *data)
+static int	init_data_philos(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->n_philo)
 	{
+		if (pthread_mutex_init(&data->philos[i].eat_info_mutex, NULL) != 0)
+			return (free_eat_mutexes(data->philos, i), 1);
 		data->philos[i].program_data = data;
 		data->philos[i].left_fork = &data->forks[i];
 		if (data->n_philo == 1)
 			data->philos[i].right_fork = NULL;
 		else
 			data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philo];
-		data->philos[i].last_meal = 0;
 		data->philos[i].id = i + 1;
 		data->philos[i].eat_count = 0;
 		i++;
 	}
+	return (0);
 }
 
 int	init_data(t_data *data)
@@ -51,12 +53,11 @@ int	init_data(t_data *data)
 	while (i < data->n_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (pthread_mutex_destroy(&data->die_flag_mutex),
-				pthread_mutex_destroy(&data->printter_mutex),
-				free_forks(data->forks, i), free(data->philos), 1);
+			return (free_all(data, i, 1), 1);
 		i++;
 	}
-	init_data_philos(data);
+	if (init_data_philos(data) == 1)
+		return (free_all(data, data->n_philo, 1), 1);
 	data->die_flag = 0;
 	return (0);
 }

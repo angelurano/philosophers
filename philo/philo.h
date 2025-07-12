@@ -43,11 +43,12 @@ typedef long long		t_ms;
 
 typedef struct s_philo
 {
+	pthread_mutex_t	eat_info_mutex;
 	struct s_data	*program_data;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	pthread_t		thread; // 8 bytes
-	t_ms			last_meal;
+	pthread_t		thread;
+	t_ms			last_eat_time;
 	int				id;
 	int				eat_count;
 }	t_philo;
@@ -70,10 +71,15 @@ typedef struct s_data
 int					ft_isdigit(char c);
 int					ft_isspace(char c);
 void				free_forks(t_fork *forks, int count);
+void				free_eat_mutexes(t_philo *philos, int count);
+void				free_all(t_data *data, int count, int is_init);
 
 t_ms				get_time_ms(void);
 
 int					get_die_flag(t_data *data);
+void				set_eat_info(t_philo *philo);
+t_ms				get_eat_time(t_philo *philo);
+int					get_eat_count(t_philo *philo);
 
 int					parse_input(int argc, char *argv[], t_data *data);
 

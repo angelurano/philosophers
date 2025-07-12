@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 18:44:48 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:37:25 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 12:09:53 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	main(int argc, char *argv[])
 		return (1);
 	state = init_routines(&data);
 	join_threads(&data);
-	free_forks(data.forks, data.n_philo);
-	free(data.philos);
-	pthread_mutex_destroy(&data.die_flag_mutex);
+	free_all(&data, data.n_philo, 0);
 	return (state);
 }
