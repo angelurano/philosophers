@@ -103,6 +103,6 @@ void				*monitor_routine(void *arg);
 int					init_routines(t_data *data);
 void				join_threads(t_data *data);
 
-void				printter(t_philo *philo, enum e_philo_state action);
+int					printter(t_philo *philo, enum e_philo_state action);
 
 #endif
