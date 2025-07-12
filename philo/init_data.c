@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:29:37 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:58:03 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ int	init_data(t_data *data)
 		return (free(data->philos), 1);
 	if (pthread_mutex_init(&data->die_flag_mutex, NULL) != 0)
 		return (free_forks(data->forks, data->n_philo), free(data->philos), 1);
+	if (pthread_mutex_init(&data->printter_mutex, NULL) != 0)
+		return (pthread_mutex_destroy(&data->die_flag_mutex),
+			free_forks(data->forks, data->n_philo), free(data->philos), 1);
 	i = 0;
 	while (i < data->n_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (free_forks(data->forks, i), free(data->philos),
-				pthread_mutex_destroy(&data->die_flag_mutex), 1);
+			return (pthread_mutex_destroy(&data->die_flag_mutex),
+				pthread_mutex_destroy(&data->printter_mutex),
+				free_forks(data->forks, i), free(data->philos), 1);
 		i++;
 	}
 	init_data_philos(data);

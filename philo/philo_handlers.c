@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:15:37 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/11 18:25:00 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:53:23 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 enum e_philo_state	think_handler(t_philo *philo)
 {
-	printter(philo->program_data->start_time, philo->id, STATE_THINK);
+	printter(philo, STATE_THINK);
 	return (STATE_1_FORK);
 }
 
@@ -37,7 +37,7 @@ enum e_philo_state	take1_handler(t_philo *philo)
 		pthread_mutex_unlock(philo->right_fork);
 		return (STATE_DIE);
 	}
-	printter(philo->program_data->start_time, philo->id, STATE_1_FORK);
+	printter(philo, STATE_1_FORK);
 	if (philo->program_data->n_philo == 1)
 	{
 		pthread_mutex_unlock(philo->left_fork);
@@ -58,13 +58,13 @@ enum e_philo_state	take2_handler(t_philo *philo)
 		pthread_mutex_unlock(philo->right_fork);
 		return (STATE_DIE);
 	}
-	printter(philo->program_data->start_time, philo->id, STATE_2_FORK);
+	printter(philo, STATE_2_FORK);
 	return (STATE_EAT);
 }
 
 enum e_philo_state	eat_handler(t_philo *philo)
 {
-	printter(philo->program_data->start_time, philo->id, STATE_EAT);
+	printter(philo, STATE_EAT);
 	philo->last_meal = get_time_ms();
 	philo->eat_count++;
 	usleep(philo->program_data->eat_time * 1000);
@@ -75,7 +75,7 @@ enum e_philo_state	eat_handler(t_philo *philo)
 
 enum e_philo_state	sleep_handler(t_philo *philo)
 {
-	printter(philo->program_data->start_time, philo->id, STATE_SLEEP);
+	printter(philo, STATE_SLEEP);
 	usleep(philo->program_data->sleep_time * 1000);
 	return (STATE_THINK);
 }

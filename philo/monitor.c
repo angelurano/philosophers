@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:35:53 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:53:55 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*monitor_routine(void *arg)
 			{
 				data->die_flag = 1;
 				pthread_mutex_unlock(&data->die_flag_mutex);
-				printter(data->start_time, data->philos[i].id, STATE_DIE);
+				printter(&data->philos[i], STATE_DIE);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&data->die_flag_mutex);

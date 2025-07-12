@@ -54,6 +54,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	pthread_mutex_t	printter_mutex;
 	pthread_mutex_t	die_flag_mutex;
 	t_fork			*forks;
 	t_philo			*philos;
@@ -90,6 +91,6 @@ void				*monitor_routine(void *arg);
 int					init_routines(t_data *data);
 void				join_threads(t_data *data);
 
-void				printter(t_ms start, int p_id, enum e_philo_state action);
+void				printter(t_philo *philo, enum e_philo_state action);
 
 #endif
