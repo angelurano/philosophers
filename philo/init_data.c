@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:38:38 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 13:08:13 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:06:56 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	init_data_philos(t_data *data)
 			return (free_eat_mutexes(data->philos, i), 1);
 		data->philos[i].id = i + 1;
 		data->philos[i].program_data = data;
+		data->philos[i].eat_count = 0;
+		data->philos[i].already_eat = 0;
 		data->philos[i].first_taken = 0;
 		data->philos[i].second_taken = 0;
-		data->philos[i].already_eat = 0;
-		data->philos[i].eat_count = 0;
 		assign_forks(&data->philos[i]);
 		i++;
 	}

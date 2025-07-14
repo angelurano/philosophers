@@ -50,10 +50,10 @@ typedef struct s_philo
 	pthread_t		thread;
 	t_ms			last_eat_time;
 	int				id;
+	int				eat_count;
+	int				already_eat;
 	int				first_taken;
 	int				second_taken;
-	int				already_eat;
-	int				eat_count;
 }	t_philo;
 
 typedef struct s_data

@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -O3
 
 RM = rm -f
 
@@ -24,7 +24,7 @@ fclean: clean
 
 re: fclean all
 
-dev: CFLAGS += -g3 -fsanitize=address,leak,undefined
+dev: CFLAGS += -g3 -Og -fsanitize=address,leak,undefined
 dev: re
 
 .PHONY: all clean fclean re
