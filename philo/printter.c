@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:26:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 13:19:36 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:32:04 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	printter(t_philo *philo, enum e_philo_state action)
 	if (action == STATE_DIE || is_die == 0)
 	{
 		ms = get_time_ms() - philo->program_data->start_time;
-		printf("%lld %d %s\n", ms, philo->id, msgs[action]);
+		printf("%ld %d %s\n", ms, philo->id, msgs[action]);
 	}
 	pthread_mutex_unlock(&philo->program_data->printter_mutex);
 	return (is_die);

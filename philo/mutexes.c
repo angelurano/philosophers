@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:46:52 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 12:22:03 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:59:04 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_eat_info(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_info_mutex);
 	philo->last_eat_time = get_time_ms();
 	philo->eat_count++;
+	philo->already_eat = 1;
 	pthread_mutex_unlock(&philo->eat_info_mutex);
 }
 

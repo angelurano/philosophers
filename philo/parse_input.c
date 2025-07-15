@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:23:46 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 11:27:40 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:32:36 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	parse_ms(char *arg, t_ms *out)
 		if (!ft_isdigit(arg[i]))
 			return (1);
 		digit = arg[i] - '0';
-		if (res > (LLONG_MAX - digit) / 10)
+		if (res > (LONG_MAX - digit) / 10)
 			return (1);
 		res = res * 10 + digit;
 		i++;

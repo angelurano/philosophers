@@ -24,7 +24,8 @@
 // pthread_mutex_lock, pthread_mutex_unlock
 // pthread_mutex_t
 
-# include <sys/types.h> // usecondst_t
+# include <time.h>
+# include <sys/types.h> // useconds_t
 # include <limits.h>
 
 enum e_philo_state
@@ -39,7 +40,7 @@ enum e_philo_state
 
 typedef pthread_mutex_t	t_fork;
 
-typedef long long		t_ms;
+typedef long			t_ms;
 
 typedef struct s_philo
 {
@@ -78,7 +79,9 @@ void				free_eat_mutexes(t_philo *philos, int count);
 void				free_all(t_data *data, int count, int is_init);
 
 t_ms				get_time_ms(void);
-t_ms				min_ms(t_ms a, t_ms b);
+t_ms				min_ms(t_ms first, t_ms second);
+t_ms				abs_ms(t_ms value);
+int					ft_usleep(useconds_t usec);
 
 int					get_die_flag(t_data *data);
 void				set_eat_info(t_philo *philo);
