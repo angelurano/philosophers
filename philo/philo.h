@@ -101,7 +101,7 @@ void				release_first_fork(t_philo *philo);
 void				release_second_fork(t_philo *philo);
 void				*philosopher_routine(void *arg);
 
-void				*monitor_routine(void *arg);
+void				monitor_routine(t_data *data);
 int					init_routines(t_data *data);
 void				join_threads(t_data *data);
 

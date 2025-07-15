@@ -6,7 +6,7 @@
 /*   By: migugar2 <migugar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:34:43 by migugar2          #+#    #+#             */
-/*   Updated: 2025/07/12 12:23:26 by migugar2         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:06:29 by migugar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,31 @@ static int	all_philo_eat(t_data *data)
 	return (1);
 }
 
-void	*monitor_routine(void *arg)
+void	monitor_routine(t_data *data)
 {
-	t_data	*data;
-	int		i;
+	int	i;
 
-	data = (t_data *)arg;
 	while (1)
 	{
 		i = 0;
 		while (i < data->n_philo)
 		{
 			pthread_mutex_lock(&data->die_flag_mutex);
-			if (get_time_ms() - get_eat_time(&data->philos[i]) > data->die_time)
+			if (get_time_ms() - get_eat_time(&data->philos[i])
+				>= data->die_time)
 			{
 				data->die_flag = 1;
 				pthread_mutex_unlock(&data->die_flag_mutex);
 				printter(&data->philos[i], STATE_DIE);
-				return (NULL);
+				return ;
 			}
 			pthread_mutex_unlock(&data->die_flag_mutex);
 			i++;
 		}
 		if (data->n_philo_must_eat != -1 && all_philo_eat(data))
-			return (NULL);
-		usleep(200);
+			return ;
+		usleep(1000);
 	}
-	return (NULL);
 }
 
 int	init_routines(t_data *data)
@@ -67,7 +65,9 @@ int	init_routines(t_data *data)
 		if (pthread_create(&data->philos[i].thread, NULL,
 				philosopher_routine, &data->philos[i]) != 0)
 		{
+			pthread_mutex_lock(&data->die_flag_mutex);
 			data->die_flag = 1;
+			pthread_mutex_unlock(&data->die_flag_mutex);
 			return (1);
 		}
 		i++;
